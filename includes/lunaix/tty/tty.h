@@ -1,3 +1,5 @@
+#ifndef __TTY_H__
+#define __TTY_H__
 typedef unsigned short vga_atrributes; 
 
 #define VGA_COLOR_BLACK 0
@@ -22,3 +24,5 @@ void tty_put_char(char chr);
 void tty_put_str(char* str);
 void tty_scroll_up();
 void tty_clear();
+
+#endif

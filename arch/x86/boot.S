@@ -24,7 +24,29 @@
                 3. Enable paging
         */
         call _kernel_init
+        /*
+            使用lgdt时，需要在gdt地址处存放：
+                gdt limit（存放在低地址）
+                gdt address（存放在高地址） 
+         */
+        subl $6, %esp
+        movl $seg_desp, 2(%esp)
+        movw gdt_limit, %ax
+        movw %ax, (%esp)
+        lgdt (%esp)
+        addl $6, %esp
+        /* 初始化各个段选择子（segment selector） */
+        movw $0x10, %cx
+        movw %cx, %es
+        movw %cx, %ds
+        movw %cx, %fs
+        movw %cx, %gs
+        movw %cx, %ss
 
+        pushw $0x8 /* 0x8为代码段选择子 */ 
+        pushl $after_init_gdt
+        retf
+    after_init_gdt:
         pushl %ebx
         call _kernel_main
 
