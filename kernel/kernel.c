@@ -11,4 +11,6 @@ void _kernel_main(void* info_table) {
     tty_clear();
     tty_set_theme(VGA_COLOR_GREEN, VGA_COLOR_BLACK);
     tty_put_str("Hello kernel world!\rThis is second line.");
+    test_memcpy();
+    tty_put_str(get_buf());
 }
